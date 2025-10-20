@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sustainable and Green Technology Explorer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #2e7d32;
+            --primary-light: #4caf50;
+            --primary-dark: #1b5e20;
+            --secondary: #ff9800;
+            --light: #f5f9f7;
+            --dark: #333;
+            --gray: #666;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white;
+            padding: 2.5rem 1rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: var(--primary-dark);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .nav-btn {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--secondary);
+            transition: all 0.3s;
+            transform: translateX(-50%);
+        }
+        
+        .nav-btn:hover, .nav-btn.active {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        .nav-btn:hover::after, .nav-btn.active::after {
+            width: 80%;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--secondary);
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+        
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #e8f5e9;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card h3 i {
+            margin-right: 0.5rem;
+            color: var(--secondary);
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            flex: 1;
+            min-width: 150px;
+            background: rgba(46, 125, 50, 0.05);
+            border-radius: 8px;
+            margin: 0.5rem;
+            transition: transform 0.3s;
+        }
+        
+        .stat-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .tech-item {
+            background: #e8f5e9;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tech-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary);
+        }
+        
+        .tech-item:hover {
+            background: #c8e6c9;
+            transform: translateY(-5px);
+        }
+        
+        .tech-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .case-study {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .case-item {
+            flex: 1;
+            min-width: 300px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .case-img {
+            height: 180px;
+            background: linear-gradient(45deg, var(--primary-light), var(--primary-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            flex-shrink: 0;
+        }
+        
+        .case-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .case-content h4 {
+            color: greenyellow;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+
+        }
+        
+        .case-content p {
+            margin-top: 1 rem;
+            flex-grow: 1;
+            color: black;
+            font-weight: bold;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 4px;
+            transition: width 1s ease-in-out;
+        }
+        
+        .quiz-container {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-top: 2rem;
+        }
+        
+        .quiz-question {
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+        
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        
+        .quiz-option {
+            padding: 1rem;
+            background: #f5f5f5;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .quiz-option:hover {
+            background: #e0e0e0;
+        }
+        
+        .quiz-option.selected {
+            background: var(--primary-light);
+            color: white;
+        }
+        
+        .quiz-result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .quiz-result.correct {
+            background: #e8f5e9;
+            color: var(--primary);
+            display: block;
+        }
+        
+        .quiz-result.incorrect {
+            background: #ffebee;
+            color: #c62828;
+            display: block;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background: #f57c00;
+        }
+        
+        footer {
+            background-color: var(--primary-dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @media (max-width: 768px) {
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                flex-direction: column;
+            }
+            
+            .nav-btn {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .case-item {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-seedling"></i> Sustainable and Green Technology Explorer</h1>
+        <p class="subtitle">Understanding China's technological applications and innovations in sustainable development</p>
+    </header>
+    
+    <nav>
+        <button class="nav-btn active" data-target="overview"><i class="fas fa-home"></i> Overview</button>
+        <button class="nav-btn" data-target="renewable"><i class="fas fa-sun"></i> Renewable Energy</button>
+        <button class="nav-btn" data-target="ev"><i class="fas fa-car"></i> Electric Vehicles</button>
+        <button class="nav-btn" data-target="smart-city"><i class="fas fa-city"></i> Smart Cities</button>
+        <button class="nav-btn" data-target="research"><i class="fas fa-graduation-cap"></i> Student Research</button>
+        <button class="nav-btn" data-target="quiz"><i class="fas fa-question-circle"></i> Knowledge Quiz</button>
+    </nav>
+    
+    <div class="container">
+        <!-- Overview Section -->
+        <section id="overview" class="section active">
+            <h2 class="section-title">China's Sustainable Development Overview</h2>
+            
+            <div class="card">
+                <h3><i class="fas fa-chart-line"></i> Current Status</h3>
+                <p>China is actively promoting green transformation and has made significant progress in renewable energy, electric vehicles, and smart cities. This application helps students understand how these technologies promote sustainable development.</p>
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value">48.2%</div>
+                        <div class="stat-label">Renewable Energy Capacity Share in China (2023)</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">25%</div>
+                        <div class="stat-label">Target Share of New Energy Vehicle Sales by 2030</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">500+</div>
+                        <div class="stat-label">Smart City Pilot Projects in China</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-wind"></i> Sustainable Technology Areas</h3>
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <div class="tech-icon"><i class="fas fa-solar-panel"></i></div>
+                        <h4>Solar Energy</h4>
+                        <p>China is the world's largest producer and installer of solar panels</p>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 85%"></div>
+                        </div>
+                        <p>Technology Maturity: 85%</p>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-icon"><i class="fas fa-fan"></i></div>
+                        <h4>Wind Energy</h4>
+                        <p>China has the world's largest installed wind power capacity</p>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 80%"></div>
+                        </div>
+                        <p>Technology Maturity: 80%</p>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-icon"><i class="fas fa-car-battery"></i></div>
+                        <h4>Energy Storage</h4>
+                        <p>Battery technology development promotes renewable energy utilization</p>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 70%"></div>
+                        </div>
+                        <p>Technology Maturity: 70%</p>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-icon"><i class="fas fa-charging-station"></i></div>
+                        <h4>Electric Vehicles</h4>
+                        <p>China is the world's largest electric vehicle market</p>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 75%"></div>
+                        </div>
+                        <p>Technology Maturity: 75%</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Renewable Energy Section -->
+        <section id="renewable" class="section">
+            <h2 class="section-title">Renewable Energy Technology</h2>
+            
+            <div class="card">
+                <h3><i class="fas fa-bolt"></i> Current Status</h3>
+                <p>China has invested heavily in renewable energy, particularly in solar and wind power, where it leads globally. According to the National Energy Administration, China's renewable energy installed capacity has exceeded 1.1 billion kilowatts.</p>
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value">306GW</div>
+                        <div class="stat-label">Solar Power Capacity (2022)</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">365GW</div>
+                        <div class="stat-label">Wind Power Capacity (2022)</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">70%</div>
+                        <div class="stat-label">Global Solar Panel Production</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-cogs"></i> Technological Breakthroughs</h3>
+                <ul>
+                    <li>High-efficiency solar cell technology with conversion efficiency over 25%</li>
+                    <li>Rapid development of offshore wind power technology with single-unit capacity reaching 16MW</li>
+                    <li>Smart grid technology improves renewable energy utilization</li>
+                    <li>Hydrogen energy technology as a future clean energy direction</li>
+                    <li>Biomass power generation technology enables resource utilization of agricultural and forestry waste</li>
+                </ul>
+                
+                <h4 style="margin-top: 1.5rem;">Case Studies</h4>
+                <div class="case-study">
+                    <div class="case-item">
+                        <div class="case-img">
+                            <img src="2.jpg" alt="">
+                        </div>
+                        <div class="case-content">
+                            <h4>Qinghai Talatan Solar Farm</h4>
+                            <p>One of the world's largest solar power plants with installed capacity exceeding 2.2GW and annual power generation of up to 4 billion kWh.</p>
+                        </div>
+                    </div>
+                    <div class="case-item">
+                        <div class="case-img">
+                            <img src="1.jpg" alt="">
+                        </div>
+                        <div class="case-content">
+                            <h4>Baihetan Hydropower Station</h4>
+                            <p>The world's second largest hydropower station with installed capacity of 16GW and average annual power generation exceeding 60 billion kWh.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Electric Vehicles Section -->
+        <section id="ev" class="section">
+            <h2 class="section-title">Electric Vehicle Development</h2>
+            
+            <div class="card">
+                <h3><i class="fas fa-tachometer-alt"></i> Market Status</h3>
+                <p>China has become the world's largest electric vehicle market, promoting low-carbon transformation in the transportation sector. In 2022, China produced and sold 7.058 million and 6.887 million new energy vehicles respectively, maintaining the global top position for 8 consecutive years.</p>
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value">6.89M</div>
+                        <div class="stat-label">Electric Vehicle Sales (2022)</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">5.2M</div>
+                        <div class="stat-label">Public Charging Piles</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">60%</div>
+                        <div class="stat-label">Global Electric Vehicle Battery Production Capacity</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-microchip"></i> Key Technology Areas</h3>
+                <ul>
+                    <li>High energy density battery technology - CATL's Kirin battery reaches 255Wh/kg</li>
+                    <li>Fast charging infrastructure - 800V high-voltage platform enables 80% charge in 15 minutes</li>
+                    <li>Vehicle networking and autonomous driving technology - 5G-V2X technology enables vehicle-road coordination</li>
+                    <li>Battery recycling and reuse - Established complete power battery recycling system</li>
+                    <li>Hydrogen fuel cell vehicles - Promoting hydrogen energy application in commercial vehicles</li>
+                </ul>
+                
+                <h4 style="margin-top: 1.5rem;">Case Studies</h4>
+                <div class="case-study">
+                    <div class="case-item">
+                        <div class="case-img">
+                            <img src="5.jpg" alt="">
+                        </div>
+                        <div class="case-content">
+                            <h4>BYD Auto</h4>
+                            <p>Global new energy vehicle sales champion with 1.86 million sales in 2022, mastering core technologies across the entire industry chain of batteries, motors, and electronic controls.</p>
+                        </div>
+                    </div>
+                    <div class="case-item">
+                        <div class="case-img">
+                            <img src="6.jpg" alt="">
+                        </div>
+                        <div class="case-content">
+                            <h4>CATL</h4>
+                            <p>The world's largest power battery manufacturer with 37% market share, driving down battery costs through technological innovation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Smart Cities Section -->
+        <section id="smart-city" class="section">
+            <h2 class="section-title">Smart City Solutions</h2>
+            
+            <div class="card">
+                <h3><i class="fas fa-network-wired"></i> Current Status</h3>
+                <p>China is building more efficient and sustainable urban environments through technological innovation. Currently, more than 500 cities are developing smart cities, forming various typical application scenarios.</p>
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value">500+</div>
+                        <div class="stat-label">Smart City Pilot Projects</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">70%</div>
+                        <div class="stat-label">5G Coverage in Urban Areas</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">85%</div>
+                        <div class="stat-label">Electronic Payment Usage in Public Transport</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-lightbulb"></i> Smart City Applications</h3>
+                <ul>
+                    <li>Intelligent traffic management systems reduce congestion - Hangzhou City Brain improves traffic efficiency by 15%</li>
+                    <li>Smart grids optimize energy distribution - Achieve source-grid-load-storage coordination</li>
+                    <li>IoT devices monitor environmental quality - Tens of millions of environmental monitoring sensors deployed nationwide</li>
+                    <li>Digital government improves public service efficiency - "One Network Unified Service" covers the whole country</li>
+                    <li>Smart buildings reduce energy consumption - Green building standards fully implemented</li>
+                </ul>
+                
+                <h4 style="margin-top: 1.5rem;">Case Studies</h4>
+                <div class="case-study">
+                    <div class="case-item">
+                        <div class="case-img">
+                            <img src="3.jpg" alt="">
+                        </div>
+                        <div class="case-content">
+                            <h4>Hangzhou City Brain</h4>
+                            <p>The world's first city brain system that uses AI to optimize urban traffic, healthcare, government services and other public services, reducing traffic congestion by 15%.</p>
+                        </div>
+                    </div>
+                    <div class="case-item">
+                        <div class="case-img">
+                            <img src="4.jpg" alt="">
+                        </div>
+                        <div class="case-content">
+                            <h4>Xiong'an New Area</h4>
+                            <p>China's first smart city built from scratch, integrating the latest green technologies and intelligent systems to create a future city model.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Student Research Section -->
+        <section id="research" class="section">
+            <h2 class="section-title">Student Research Directions</h2>
+            
+            <div class="card">
+                <h3><i class="fas fa-flask"></i> Research Areas</h3>
+                <p>Students can participate in the following sustainable technology-related research projects:</p>
+                
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <h4>Renewable Energy Efficiency</h4>
+                        <p>Research new methods to improve solar and wind energy conversion efficiency, such as perovskite solar cells, high-altitude wind power technology, etc.</p>
+                    </div>
+                    <div class="tech-item">
+                        <h4>Battery Technology</h4>
+                        <p>Explore safer, higher-capacity battery materials, such as solid-state batteries, sodium-ion batteries, metal-air batteries, etc.</p>
+                    </div>
+                    <div class="tech-item">
+                        <h4>Smart City Algorithms</h4>
+                        <p>Develop intelligent algorithms for optimizing urban resource allocation, such as traffic flow prediction, energy demand management, etc.</p>
+                    </div>
+                    <div class="tech-item">
+                        <h4>Sustainable Materials</h4>
+                        <p>Research new biodegradable or recyclable materials, such as bio-based plastics, self-healing materials, etc.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-book-open"></i> Research Resources</h3>
+                <ul>
+                    <li>Ministry of Science and Technology Sustainable Development Technology Special Projects</li>
+                    <li>National Natural Science Foundation related projects</li>
+                    <li>University Sustainable Development Research Centers</li>
+                    <li>Corporate Green Technology Laboratories</li>
+                    <li>International organization cooperation projects (such as UNDP)</li>
+                </ul>
+                
+                <h4 style="margin-top: 1.5rem;">Recommended Research Topics</h4>
+                <ul>
+                    <li>AI-based wind farm layout optimization research</li>
+                    <li>Electric vehicle retired battery cascade utilization technology research</li>
+                    <li>Urban building energy consumption intelligent monitoring and optimization system design</li>
+                    <li>Blockchain-based carbon trading platform construction</li>
+                    <li>New high-efficiency low-cost photovoltaic material development</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Knowledge Quiz Section -->
+        <section id="quiz" class="section">
+            <h2 class="section-title">Sustainable Technology Knowledge Quiz</h2>
+            
+            <div class="card">
+                <h3><i class="fas fa-pencil-alt"></i> Test Your Knowledge</h3>
+                <p>Complete the following questions to test your understanding of sustainable technology and China's green development.</p>
+                
+                <div class="quiz-container">
+                    <div class="quiz-question" id="question1">
+                        1. In which year did China propose the "Dual Carbon" goals, namely carbon peak and carbon neutrality?
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="true">2020</div>
+                        <div class="quiz-option">2018</div>
+                        <div class="quiz-option">2022</div>
+                        <div class="quiz-option">2015</div>
+                    </div>
+                    <div class="quiz-result"></div>
+                    
+                    <div class="quiz-question" id="question2" style="margin-top: 2rem;">
+                        2. Which of the following is NOT a globally leading technology of China in renewable energy?
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">Photovoltaic power generation</div>
+                        <div class="quiz-option" data-correct="true">Nuclear fusion power generation</div>
+                        <div class="quiz-option">Wind power technology</div>
+                        <div class="quiz-option">Hydropower technology</div>
+                    </div>
+                    <div class="quiz-result"></div>
+                    
+                    <div class="quiz-question" id="question3" style="margin-top: 2rem;">
+                        3. By which year does China plan to achieve carbon peak?
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">2025</div>
+                        <div class="quiz-option" data-correct="true">2030</div>
+                        <div class="quiz-option">2035</div>
+                        <div class="quiz-option">2040</div>
+                    </div>
+                    <div class="quiz-result"></div>
+                    
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <button class="btn" id="submit-quiz">Submit Answers</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <h3>Sustainable and Green Technology Explorer</h3>
+            <p>This application aims to help students understand China's progress in sustainable development and green technology</p>
+            
+            <div class="footer-links">
+                <a href="#"><i class="fas fa-book"></i> Resource Center</a>
+                <a href="#"><i class="fas fa-newspaper"></i> Latest News</a>
+                <a href="#"><i class="fas fa-envelope"></i> Contact Us</a>
+            </div>
+            
+            <p>&copy; 2023 Sustainable and Green Technology Explorer | Data for reference only, actual data may vary</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Navigation toggle functionality
+        document.querySelectorAll('.nav-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Add active class to current button
+                button.classList.add('active');
+                
+                // Hide all sections
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Show target section
+                const targetId = button.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+        
+        // Simple data visualization effect
+        document.querySelectorAll('.stat-value').forEach(stat => {
+            const originalText = stat.textContent;
+            stat.textContent = '0';
+            
+            let counter = 0;
+            const target = parseFloat(originalText.replace(/[^0-9.]/g, ''));
+            const increment = target / 50;
+            
+            const updateCount = () => {
+                if (counter < target) {
+                    counter += increment;
+                    if (originalText.includes('%')) {
+                        stat.textContent = counter.toFixed(1) + '%';
+                    } else if (originalText.includes('.')) {
+                        stat.textContent = counter.toFixed(1);
+                    } else {
+                        stat.textContent = Math.round(counter).toLocaleString();
+                    }
+                    setTimeout(updateCount, 30);
+                } else {
+                    stat.textContent = originalText;
+                }
+            };
+            
+            // Delay starting counter until page loads
+            setTimeout(updateCount, 500);
+        });
+        
+        // Knowledge quiz functionality
+        document.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selected state from other options in the same question
+                const parent = this.parentElement;
+                parent.querySelectorAll('.quiz-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Select current option
+                this.classList.add('selected');
+            });
+        });
+        
+        document.getElementById('submit-quiz').addEventListener('click', function() {
+            let correctAnswers = 0;
+            let totalQuestions = 0;
+            
+            document.querySelectorAll('.quiz-options').forEach(optionGroup => {
+                totalQuestions++;
+                const selectedOption = optionGroup.querySelector('.quiz-option.selected');
+                const resultDiv = optionGroup.nextElementSibling;
+                
+                if (selectedOption) {
+                    if (selectedOption.hasAttribute('data-correct')) {
+                        correctAnswers++;
+                        resultDiv.textContent = 'Correct!';
+                        resultDiv.className = 'quiz-result correct';
+                    } else {
+                        resultDiv.textContent = 'Incorrect, please try again.';
+                        resultDiv.className = 'quiz-result incorrect';
+                    }
+                } else {
+                    resultDiv.textContent = 'Please select an answer.';
+                    resultDiv.className = 'quiz-result incorrect';
+                }
+            });
+            
+            // Display total score
+            if (correctAnswers === totalQuestions) {
+                alert(`Congratulations! You answered all ${totalQuestions} questions correctly!`);
+            } else {
+                alert(`You answered ${correctAnswers} out of ${totalQuestions} questions correctly.`);
+            }
+        });
+        
+        // Progress bar animation
+        window.addEventListener('load', function() {
+            document.querySelectorAll('.progress').forEach(progress => {
+                const width = progress.style.width;
+                progress.style.width = '0';
+                setTimeout(() => {
+                    progress.style.width = width;
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>
